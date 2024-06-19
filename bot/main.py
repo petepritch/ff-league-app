@@ -2,7 +2,9 @@ from typing import Final
 import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
-from responses import get_response
+from discord.ext import commands
+from responses import search_muse
+from meta import Meta
 
 # Step 0: Load token somewhere safe
 load_dotenv()
@@ -11,33 +13,23 @@ TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')
 # Step 1: Bot Setup
 intents: Intents = Intents.default()
 intents.message_content = True # NOQA
-client: Client = Client(intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Step 2: Message functionality
-async def send_message(message: Message, user_message: str) -> None:
-    if not user_message:
-        print('(Message was empty becuase intents were not enabled probably)')
-        return
-    
-    if is_private := user_message[0] == '?':
-        user_message = user_message[1:]
+# Command functionality
+@bot.command(name='muse')
+async def muse(ctx, *, user_text: str):
+    result = search_muse(user_text)
+    await ctx.send(result)
 
-    try:
-        response: str = get_response(user_message)
-        await message.author.send(response) if is_private else await message.channel.send(response)
-    except Exception as e:
-        print(e)    # Use proper logging
-
-
-# Step 3: Handling the startup for the bot
-@client.event
+# Startup
+@bot.event
 async def on_ready() -> None:
-    print(f'{Client.user} is now running!')
+     print(f'{bot.user} is now running!')
 
-# Step 4: Handling incoming messages
-@client.event
+# Handling incoming messages
+@bot.event
 async def on_message(message: Message) -> None:
-    if message.author == client.user:
+    if message.author == bot.user:
         return
     
     username: str = str(message.author)
@@ -45,11 +37,16 @@ async def on_message(message: Message) -> None:
     channel: str = str(message.channel)
 
     print(f'[{channel}] {username}: "{user_message}"')
-    await send_message(message, user_message)
+    await bot.process_commands(message)  # Process commands if the message contains a command
+
+# Load the Meta cog
+async def load_extensions():
+    await bot.add_cog(Meta(bot))
+    await bot.tree.sync()
 
 # Step 5: Main entry point
 def main() -> None:
-    client.run(token=TOKEN)
+    bot.run(token=TOKEN)
 
 if __name__ == '__main__':
     main()

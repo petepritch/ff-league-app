@@ -32,3 +32,4 @@ This project is a Discord bot that pulls data from the Yahoo Fantasy API using t
    ```bash
    git clone https://github.com/your-username/discord-yahoo-fantasy-bot.git
    cd discord-yahoo-fantasy-bot
+   ```
