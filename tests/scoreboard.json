@@ -1,0 +1,525 @@
+{
+    "matchups": [
+      {
+        "matchup": {
+          "is_consolation": 0,
+          "is_matchup_recap_available": 1,
+          "is_playoffs": 1,
+          "is_tied": 0,
+          "matchup_grades": [
+            {
+              "matchup_grade": {
+                "grade": "D+",
+                "team_key": "423.l.49754.t.1"
+              }
+            },
+            {
+              "matchup_grade": {
+                "grade": "A",
+                "team_key": "423.l.49754.t.11"
+              }
+            }
+          ],
+          "matchup_recap_title": "Doofy’s Specialtroopers Dominates LeJizzleby James in Final Week Showdown",
+          "matchup_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/recap?week=17&mid1=1&mid2=11",
+          "status": "postevent",
+          "teams": [
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "C",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/1/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 610,
+                    "felo_tier": "silver",
+                    "guid": "P6BAQ5NMPWHGQFURAS6EBVTJLE",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "is_commissioner": 0,
+                    "manager_id": 1,
+                    "nickname": "Richmond"
+                  }
+                },
+                "name": "LeJizzleby James",
+                "number_of_moves": 86,
+                "number_of_trades": 7,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 1,
+                "team_key": "423.l.49754.t.1",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/24973704869_dd6e2f096c.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 104.1,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 120.1,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/1",
+                "waiver_priority": 6,
+                "win_probability": 0.0
+              }
+            },
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "B",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/11/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 657,
+                    "felo_tier": "silver",
+                    "guid": "ZM4RPDKPPZ3TJZDW2UCPDUSQUE",
+                    "image_url": "https://s.yimg.com/ag/images/99054adb-3cd0-4319-9f39-aa82cf71afe0_64sq.jpg",
+                    "manager_id": 11,
+                    "nickname": "Hunter"
+                  }
+                },
+                "name": "Doofy’s Specialtroopers",
+                "number_of_moves": 27,
+                "number_of_trades": 5,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 11,
+                "team_key": "423.l.49754.t.11",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/b64239455f406559afc163f10b135391046517c0a1fb10c5ac3f3173fc840aa4.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 126.86,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 110.6,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/11",
+                "waiver_priority": 12,
+                "win_probability": 1.0
+              }
+            }
+          ],
+          "week": 17,
+          "week_end": "2024-01-01",
+          "week_start": "2023-12-26",
+          "winner_team_key": "423.l.49754.t.11"
+        }
+      },
+      {
+        "matchup": {
+          "is_consolation": 0,
+          "is_matchup_recap_available": 1,
+          "is_playoffs": 1,
+          "is_tied": 0,
+          "matchup_grades": [
+            {
+              "matchup_grade": {
+                "grade": "D+",
+                "team_key": "423.l.49754.t.2"
+              }
+            },
+            {
+              "matchup_grade": {
+                "grade": "A",
+                "team_key": "423.l.49754.t.10"
+              }
+            }
+          ],
+          "matchup_recap_title": "Coach Adams’ Meat Dominates De most Ernest Lewis, Secures Victory in Week 17",
+          "matchup_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/recap?week=17&mid1=2&mid2=10",
+          "status": "postevent",
+          "teams": [
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "D+",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/2/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 687,
+                    "felo_tier": "silver",
+                    "guid": "7AK7KQ54ASSIFTBFGM46KSYIJH",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "manager_id": 2,
+                    "nickname": "lewis"
+                  }
+                },
+                "name": "De most Ernest Lewis",
+                "number_of_moves": 28,
+                "number_of_trades": 5,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 2,
+                "team_key": "423.l.49754.t.2",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/39202166743_26a06a.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 103.99,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 107.34,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/2",
+                "waiver_priority": 10,
+                "win_probability": 0.0
+              }
+            },
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "D",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/10/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "is_owned_by_current_login": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 709,
+                    "felo_tier": "gold",
+                    "guid": "LY7JPIFH5YYATGPA3ZBVVT435Q",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "is_current_login": 1,
+                    "manager_id": 10,
+                    "nickname": "Pete"
+                  }
+                },
+                "name": "Coach Adams’ Meat",
+                "number_of_moves": 39,
+                "number_of_trades": 9,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 10,
+                "team_key": "423.l.49754.t.10",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/1161bc772809adebe45a477cee9ac1494d963c991e6b712c0af8c39cca0d9e41.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 125.03,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 109.07,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/10",
+                "waiver_priority": 9,
+                "win_probability": 1.0
+              }
+            }
+          ],
+          "week": 17,
+          "week_end": "2024-01-01",
+          "week_start": "2023-12-26",
+          "winner_team_key": "423.l.49754.t.10"
+        }
+      },
+      {
+        "matchup": {
+          "is_consolation": 0,
+          "is_matchup_recap_available": 1,
+          "is_playoffs": 1,
+          "is_tied": 0,
+          "matchup_grades": [
+            {
+              "matchup_grade": {
+                "grade": "A+",
+                "team_key": "423.l.49754.t.4"
+              }
+            },
+            {
+              "matchup_grade": {
+                "grade": "D+",
+                "team_key": "423.l.49754.t.12"
+              }
+            }
+          ],
+          "matchup_recap_title": "Cruspy McNugent Dominates Throat Missile Johnson in Season Finale",
+          "matchup_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/recap?week=17&mid1=4&mid2=12",
+          "status": "postevent",
+          "teams": [
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "D+",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/4/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 690,
+                    "felo_tier": "silver",
+                    "guid": "K2HPKVMO546M5LXOKVIYJFUM6A",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "manager_id": 4,
+                    "nickname": "Juzzman"
+                  }
+                },
+                "name": "Cruspy McNugent",
+                "number_of_moves": 79,
+                "number_of_trades": 11,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 4,
+                "team_key": "423.l.49754.t.4",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/0fca0c027f1ac0cc08895623ef721ac1b4df80841f20546641ca1c0e06f10cd6.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 170.62,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 113.88,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/4",
+                "waiver_priority": 8,
+                "win_probability": 1.0
+              }
+            },
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "B+",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/12/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 589,
+                    "felo_tier": "bronze",
+                    "guid": "PFJ7B5QY3YORSG4O4A55WQ5AA4",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "manager_id": 12,
+                    "nickname": "Parker"
+                  }
+                },
+                "name": "Throat Missile Johnson",
+                "number_of_moves": 62,
+                "number_of_trades": 6,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 12,
+                "team_key": "423.l.49754.t.12",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/dab3d2d7f9978d68db6b9e6045527a3abdf84e6e8eef6ee520d8a9d57c0dfa84.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 127.67,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 115.08,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/12",
+                "waiver_priority": 7,
+                "win_probability": 0.0
+              }
+            }
+          ],
+          "week": 17,
+          "week_end": "2024-01-01",
+          "week_start": "2023-12-26",
+          "winner_team_key": "423.l.49754.t.4"
+        }
+      },
+      {
+        "matchup": {
+          "is_consolation": 0,
+          "is_matchup_recap_available": 1,
+          "is_playoffs": 1,
+          "is_tied": 0,
+          "matchup_grades": [
+            {
+              "matchup_grade": {
+                "grade": "C-",
+                "team_key": "423.l.49754.t.7"
+              }
+            },
+            {
+              "matchup_grade": {
+                "grade": "A+",
+                "team_key": "423.l.49754.t.9"
+              }
+            }
+          ],
+          "matchup_recap_title": "RootMan Dominates Big Cringle to End the Season",
+          "matchup_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/recap?week=17&mid1=7&mid2=9",
+          "status": "postevent",
+          "teams": [
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "A+",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/7/draftrecap",
+                "faab_balance": 0,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 572,
+                    "felo_tier": "bronze",
+                    "guid": "UMPVN6WEICOI47ZOPJGYPMJOAA",
+                    "image_url": "https://s.yimg.com/ag/images/4537/38211762110_89886e_64sq.jpg",
+                    "manager_id": 7,
+                    "nickname": "Patrick"
+                  }
+                },
+                "name": "Big Cringle",
+                "number_of_moves": 56,
+                "number_of_trades": 8,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 7,
+                "team_key": "423.l.49754.t.7",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/24967074699_84c22fcdf4.jpg"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 118.96,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 105.41,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/7",
+                "waiver_priority": 5,
+                "win_probability": 0.0
+              }
+            },
+            {
+              "team": {
+                "clinched_playoffs": 1,
+                "draft_grade": "A+",
+                "draft_recap_url": "https://football.fantasysports.yahoo.com/2023/f1/49754/9/draftrecap",
+                "faab_balance": 130,
+                "has_draft_grade": 1,
+                "league_scoring_type": "head",
+                "managers": {
+                  "manager": {
+                    "felo_score": 580,
+                    "felo_tier": "bronze",
+                    "guid": "2TWHTMLUZVVGYZLRQ32KH4LXBM",
+                    "image_url": "https://s.yimg.com/ag/images/default_user_profile_pic_64sq.jpg",
+                    "is_commissioner": 0,
+                    "manager_id": 9,
+                    "nickname": "tcudd"
+                  }
+                },
+                "name": "RootMan",
+                "number_of_moves": 30,
+                "number_of_trades": 5,
+                "roster_adds": {
+                  "coverage_type": "week",
+                  "coverage_value": 18,
+                  "value": 0
+                },
+                "team_id": 9,
+                "team_key": "423.l.49754.t.9",
+                "team_logos": {
+                  "team_logo": {
+                    "size": "large",
+                    "url": "https://yahoofantasysports-res.cloudinary.com/image/upload/t_s192sq/fantasy-logos/90d7086761761e99f4b338715a16863f689009b699da3e9ddc15754393657d00.png"
+                  }
+                },
+                "team_points": {
+                  "coverage_type": "week",
+                  "total": 145.19,
+                  "week": 17
+                },
+                "team_projected_points": {
+                  "coverage_type": "week",
+                  "total": 114.54,
+                  "week": 17
+                },
+                "url": "https://football.fantasysports.yahoo.com/2023/f1/49754/9",
+                "waiver_priority": 11,
+                "win_probability": 1.0
+              }
+            }
+          ],
+          "week": 17,
+          "week_end": "2024-01-01",
+          "week_start": "2023-12-26",
+          "winner_team_key": "423.l.49754.t.9"
+        }
+      }
+    ],
+    "week": 17
+  }

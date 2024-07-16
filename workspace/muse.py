@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 def search_muse(query:str) -> str:
     """
-    This function takes a user str request and returns Statmuse query
+    This function takes a user text query and returns Statmuse query
 
     Parameters
     ----------
@@ -28,8 +28,8 @@ def search_muse(query:str) -> str:
     if h1_tag is None:
         raise ValueError("Could not find h1")
     
-    span_tag = h1_tag.find("span")
-    if span_tag is None:
-        raise ValueError("Could not find span")
+    p_tag = h1_tag.find("p")
+    if p_tag is None:
+        raise ValueError("Could not find p")
     
-    return span_tag.text
+    return p_tag.text

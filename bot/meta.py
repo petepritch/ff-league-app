@@ -1,3 +1,7 @@
+#########################################################
+### THIS FILE CONTAINTS DESCRIPTIONS OF BOT FUNCTIONS ###
+### SENT TO USERS WHEN THE '!help' FUNCTION IS CALLED ###
+#########################################################
 from discord.ext import commands
 from discord import app_commands
 import discord

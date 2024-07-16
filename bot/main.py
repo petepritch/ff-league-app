@@ -5,6 +5,7 @@ from discord import Intents, Client, Message
 from discord.ext import commands
 from responses import search_muse
 from meta import Meta
+from yahoo.functionality import get_standings, get_scoreboard
 
 # Step 0: Load token somewhere safe
 load_dotenv()
@@ -19,7 +20,30 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 @bot.command(name='muse')
 async def muse(ctx, *, user_text: str):
     result = search_muse(user_text)
-    await ctx.send(result)
+    if result:
+        await ctx.send(result)
+    else:
+        await ctx.send('Sorry, I could not retrieve this statistic.')
+
+@bot.command(name="standings")
+async def standings(ctx):
+    standings = get_standings()
+    if standings:
+        await ctx.send(embed=standings)
+    else:
+        await ctx.send('Sorry, there seems to be an issue.') 
+
+@bot.command(name='scoreboard')
+async def scoreboard(ctx):
+    scoreboard = get_scoreboard()
+    if scoreboard:
+        await ctx.send(embed=scoreboard)
+    else:
+        await ctx.send('Sorry, there seems to be an issue.')
+
+#########################
+### TRANSACTIONS LOOP ###
+#########################
 
 # Startup
 @bot.event
