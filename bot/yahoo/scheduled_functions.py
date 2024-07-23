@@ -38,7 +38,11 @@ def get_power_rankings():
     """
     This function returns the power rankings of the teams in the league for a given week,
     along with the change in the power rankings from the previous week. The power rankings
-    are determined
+    are determined by the following equation:
+
+    Power rankings are then delivered by Marcy with commentary developed by Llamma.cpp, and 
+    trained on ESPN, CBS, and The Atheletic NFL power rankings articles along with previous
+    group chat data. 
     
     Parameters
     ----------
