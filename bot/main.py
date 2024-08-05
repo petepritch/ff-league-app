@@ -48,7 +48,12 @@ async def scoreboard(ctx):
 # Startup
 @bot.event
 async def on_ready() -> None:
-     print(f'{bot.user} is now running!')
+    print(f'{bot.user} is now running!')
+    try:
+        synced = await bot.tree.sync()
+        print(f'Synced {len(synced)} command(s)')
+    except Exception as e:
+        print(f'Error syncing commands: {e}')
 
 # Handling incoming messages
 @bot.event
@@ -63,10 +68,19 @@ async def on_message(message: Message) -> None:
     print(f'[{channel}] {username}: "{user_message}"')
     await bot.process_commands(message)  # Process commands if the message contains a command
 
-# Load the Meta cog
+# Load cogs
 async def load_extensions():
-    await bot.add_cog(Meta(bot))
-    await bot.tree.sync()
+    await bot.load_extension('meta')
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user}')
+    await load_extensions()
+    try:
+        synced = await bot.tree.sync()
+        print(f'Synced {len(synced)} command(s)')
+    except Exception as e:
+        print(f'Error syncing commands: {e}')
 
 # Step 5: Main entry point
 def main() -> None:

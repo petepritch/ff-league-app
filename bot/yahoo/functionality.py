@@ -119,7 +119,7 @@ def get_standings():
     # Load JSON data into a Python dictionary
     data = json.loads(standings_data)
 
-        # Header for the table
+    # Header for the table
     header = f"{'Rank':<5}{'Manager':<20}{'Wins':<5}{'Losses':<7}{'PF':<10}{'PA':<10}"
     
     # Add the header to the embed
@@ -172,4 +172,13 @@ def get_transactions():
         A Discord Embed object containing the formatted transactions
     """
     embed = discord.Embed(title="New Transaction", color=0x00ff00)
+
+    transactions_data = query.get_league_transactions()
+    transactions_data = transactions_data.to_json()
+
+    # Load JSON data into Python dictionary
+    data = json.loads(transactions_data)
+
+    transactions = data.get()
+
     return None
