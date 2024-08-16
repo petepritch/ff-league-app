@@ -39,6 +39,25 @@ query = YahooFantasySportsQuery(
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+def get_current_week():
+    """
+    Gets the current week of the fantasy season
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    int 
+        representing the current week [1,17]
+    """
+    meta_data = query.get_league_metadata()
+    current_week = meta_data.current_week
+
+    return current_week
+
+
 def map_team_key_to_nickname(df: pd.DataFrame, key: str) -> pd.DataFrame:
     """
     

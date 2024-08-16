@@ -5,7 +5,7 @@ from discord import Intents, Client, Message
 from discord.ext import commands
 from responses import search_muse
 from meta import Meta
-from yahoo.functionality import get_standings, get_scoreboard, get_power_rankings
+from yahoo.functionality import get_standings, get_scoreboard, get_power_rankings, get_playoff_odds
 
 # Step 0: Load token somewhere safe
 load_dotenv()
@@ -52,9 +52,28 @@ async def powrank(ctx):
     else:
         await ctx.send('Sorry, there seems to be an issue.')
 
+@bot.command(name='odds')
+async def odds(ctx):
+    odds = get_playoff_odds()
+    if odds:
+        await ctx.send(embed=odds)
+    else:
+        await ctx.send('Sorry, there seems to be an issue.')
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 ################### SCHEDULED #######################
 """""""""""""""""""""""""""""""""""""""""""""""""""""
+
+# Actvivity monitor
+message_count = {}
+
+@bot.event
+async def on_message(ctx):
+    author = str(ctx.author)
+    if author in message_count:
+        message_count[author] += 1
+    else:
+        message_count[author] = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 ################ TRANSACTIONS LOOP ##################

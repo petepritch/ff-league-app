@@ -10,6 +10,7 @@ from yfpy.query import YahooFantasySportsQuery
 from dotenv import load_dotenv
 from pathlib import Path
 from utils.scripts import map_team_key_to_nickname
+from joblib import Parallel, delayed
 
 # set directory location of private.json for authentication
 project_dir = Path(__file__).parent.parent
@@ -210,7 +211,7 @@ def get_playoff_odds():
     # Initialize an empty list to store records
     records = []
 
-    for i in range(1, 7): # the 7 will be eventually replacted by current_week
+    for i in range(1, 15): # the 7 will be eventually replacted by current_week
         # Query data from yahoo
         matchups = query.get_league_matchups_by_week(i)
         # Loop through matchup data
@@ -230,7 +231,6 @@ def get_playoff_odds():
                     'winner_team_key': matchup_dict.get('winner_team_key'),
                     'team_key': team_info.get('team_key'),
                     'team_total_points': team_info.get('team_points', {}).get('total'),
-                    'team_projected_points': team_info.get('team_projected_points', {}).get('total')
                 }
                 
                 # Add the record to the list
@@ -242,7 +242,7 @@ def get_playoff_odds():
     df["win"] = np.where(df['winner_team_key'] == df['team_key'], 1, 0)
     
     # Calculate average points and standard deviation for each team
-    team_stats = df.groupby('team_key').agg({
+    team_stats = df[df['week'] <= current_week].groupby('team_key').agg({
         'team_total_points': ['mean', 'std', 'sum'],
         'win': 'sum' 
     }).reset_index()
@@ -255,27 +255,71 @@ def get_playoff_odds():
     ##########################################
 
     # Parameters
-    n_simulations = 10000  # Number of Monte Carlo simulations
-    n_weeks_remaining = 7  # Number of weeks remaining in the season
-    # n_weeks_remaining = 14 - current_week
-    n_playoff_teams = 8    # Number of teams that make the playoffs
+    n_simulations = 10000                 # Number of Monte Carlo simulations
+    n_weeks_remaining = 14 - current_week # Number of weeks remaining in the season
+    n_playoff_teams = 8                   # Number of teams that make the playoffs
 
-    # Column to track playoff qualifications
-    team_stats['playoff_made'] = 0
+    def simulate_season(seed):
+        # Reproducibility
+        np.random.seed(seed)
+        # Simulate remainder of season
+        for _ in range(n_simulations):
+            # df to simulate each team's season
+            team_simulation = team_stats[['team_key']].copy()
+            team_simulation['wins'] = team_stats['wins'].copy()
+            team_simulation['total_points'] = team_stats['total_points'].copy()
 
-    # Simulate remainder of season
-    for _ in range(n_simulations):
-        # df to simulate each team's season
-        team_simulation = team_stats[['team_key']].copy()
-        team_simulation = team_stats['wins'].copy()
-        team_simulation = team_stats['total_points'].copy()
-
-        for week in n_weeks_remaining:
+            for week in range(n_weeks_remaining):
+                # Simulate points for each team
+                simulated_points = np.random.normal(
+                    team_stats['avg_points'],
+                    team_stats['std_points']
+                )
+                # Simulate matchups based on real schedule
+                for idx, row in df[df['week'] == current_week + week].iterrows():
+                    team1 = row['team_key']
+                    team2 = df[(df['week'] == row['week']) & (df['matchup_id'] == row['matchup_id']) & (df['team_key'] != team1)]['team_key'].values[0]
+                    
+                    points_team1 = simulated_points[team_stats[team_stats['team_key'] == team1].index[0]]
+                    points_team2 = simulated_points[team_stats[team_stats['team_key'] == team2].index[0]]
+                    
+                    if points_team1 > points_team2:
+                        team_simulation.loc[team_simulation['team_key'] == team1, 'wins'] += 1
+                    else:
+                        team_simulation.loc[team_simulation['team_key'] == team2, 'wins'] += 1
+                    
+                    team_simulation.loc[team_simulation['team_key'] == team1, 'total_points'] += points_team1
+                    team_simulation.loc[team_simulation['team_key'] == team2, 'total_points'] += points_team2
             
-            week = 1
+            # Sort teams first by wins, then by total points for tie-breaking
+            team_simulation = team_simulation.sort_values(by=['wins', 'total_points'], ascending=[False, False])
+            
+            # Select top N teams for playoffs
+            playoff_teams = team_simulation.head(n_playoff_teams)['team_key'].values
+            return playoff_teams
+    
+    # Run simulations in parallel
+    results = Parallel(n_jobs=-1)(delayed(simulate_season)(seed) for seed in range(n_simulations))
+    # Count playoff appearances for each team
+    playoff_counts = pd.Series(np.concatenate(results)).value_counts()
+    # Calculate the playoff odds as a percentage
+    team_stats['playoff_odds'] = (playoff_counts / n_simulations * 100).reindex(team_stats['team_key']).fillna(0).values
+    # Final table for embed
+    odds_df = pd.DataFrame()
+    odds_df['team_key'] = team_stats['team_key']
+    odds_df['playoff_odds'] = team_stats['playoff_odds']
+    odds_df = map_team_key_to_nickname(odds_df, 'team_key')
+    odds_df = odds_df.sort_values(by='playoff_odds', ascending=False).reset_index(drop=True)
 
+    # Iterate to collect data from embed
+    manager_col = "\n".join([f"{row['nickname']}" for _, row in odds_df.iterrows()])
+    odds_col = "\n".join([f"{row['playoff_odds']:.2f}" for _, row in odds_df.iterrows()])
 
-    return None
+    # Adding the table to the embed
+    embed.add_field(name="Manager", value=f"```{manager_col}```", inline=True)
+    embed.add_field(name="Playoff Odds", value=f"```{odds_col}```", inline=True)
+
+    return embed
 
 
 def get_power_rankings():
@@ -294,7 +338,6 @@ def get_power_rankings():
     """
     # Embed structure
     embed = discord.Embed(title="Richie's Power Rankings", color=0x00ff00)
-    header = f"{'Rank':<5}{'Manager':<20}{'Power Score':<20}"
     # Get current week
     current_week = get_current_week()
 
@@ -355,7 +398,7 @@ def get_power_rankings():
    # Add a new 'Rank' column based on the Power Score
     p_rank_table['Rank'] = p_rank_table['Power Score'].rank(ascending=False, method='min').astype(int)
     # Sort by Rank if needed
-    p_rank_table = p_rank_table.sort_values('Rank')
+    p_rank_table = p_rank_table.sort_values('Rank').reset_index(drop=True)
     # Prepare the table content
     rank_col = "\n".join([f"{row['Rank']}" for _, row in p_rank_table.iterrows()])
     manager_col = "\n".join([f"{row['Manager']}" for _, row in p_rank_table.iterrows()])
@@ -367,3 +410,27 @@ def get_power_rankings():
     embed.add_field(name="Power Score", value=f"```{score_col}```", inline=True)
     
     return embed
+
+
+def get_whatif_matrix():
+    """
+    Creates a matrix displaying each team's record as if 
+    they had played every other team's schedule.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    discord.Embed
+        A discord Embed object containing formatted matrix
+    """
+    # Embed structure
+    embed = discord.Embed(title="Playoff Odds", color=0x00ff00)
+
+    # Get current week
+    current_week = get_current_week()
+
+    # Initialize an empty list to store records
+    records = []
