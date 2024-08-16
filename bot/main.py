@@ -5,7 +5,7 @@ from discord import Intents, Client, Message
 from discord.ext import commands
 from responses import search_muse
 from meta import Meta
-from yahoo.functionality import get_standings, get_scoreboard
+from yahoo.functionality import get_standings, get_scoreboard, get_power_rankings
 
 # Step 0: Load token somewhere safe
 load_dotenv()
@@ -16,7 +16,10 @@ intents: Intents = Intents.default()
 intents.message_content = True # NOQA
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Command functionality
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+################### ! COMMANDS ######################
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 @bot.command(name='muse')
 async def muse(ctx, *, user_text: str):
     result = search_muse(user_text)
@@ -41,9 +44,21 @@ async def scoreboard(ctx):
     else:
         await ctx.send('Sorry, there seems to be an issue.')
 
-#########################
-### TRANSACTIONS LOOP ###
-#########################
+@bot.command(name='powrank')
+async def powrank(ctx):
+    powrank = get_power_rankings()
+    if powrank:
+        await ctx.send(embed=powrank)
+    else:
+        await ctx.send('Sorry, there seems to be an issue.')
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+################### SCHEDULED #######################
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+################ TRANSACTIONS LOOP ##################
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 # Startup
 @bot.event

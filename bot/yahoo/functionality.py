@@ -2,10 +2,14 @@ import os
 import sys
 import json
 import discord
+import uuid
+import pandas as pd
+import numpy as np
 from typing import Final
 from yfpy.query import YahooFantasySportsQuery
 from dotenv import load_dotenv
 from pathlib import Path
+from utils.scripts import map_team_key_to_nickname
 
 # set directory location of private.json for authentication
 project_dir = Path(__file__).parent.parent
@@ -182,3 +186,184 @@ def get_transactions():
     transactions = data.get()
 
     return None
+
+def get_playoff_odds():
+    """
+    Calculates individual team's odds of making the playoffs using
+    Monte Carlo simulations
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    discord.Embed
+        A discord Embed object containing formatted playoff odds
+    """
+    # Embed structure
+    embed = discord.Embed(title="Playoff Odds", color=0x00ff00)
+
+    # Get current week
+    current_week = get_current_week()
+
+    # Initialize an empty list to store records
+    records = []
+
+    for i in range(1, 7): # the 7 will be eventually replacted by current_week
+        # Query data from yahoo
+        matchups = query.get_league_matchups_by_week(i)
+        # Loop through matchup data
+        for i in range(len(matchups)):
+            matchup = matchups[i].to_json() # matchup[i] is a yfpy object
+            matchup_dict = json.loads(matchup)
+            
+            # Generate a unique matchup_id (UUID)
+            matchup_id = str(uuid.uuid4())
+
+            # Extract information for each team in the matchup
+            for team in matchup_dict.get('teams', []):
+                team_info = team.get('team', {})
+                record = {
+                    'matchup_id': matchup_id,
+                    'week': matchup_dict.get('week'),
+                    'winner_team_key': matchup_dict.get('winner_team_key'),
+                    'team_key': team_info.get('team_key'),
+                    'team_total_points': team_info.get('team_points', {}).get('total'),
+                    'team_projected_points': team_info.get('team_projected_points', {}).get('total')
+                }
+                
+                # Add the record to the list
+                records.append(record)
+
+    # Convert the list of records to a DataFrame
+    df = pd.DataFrame(records)
+    # Creating win column 
+    df["win"] = np.where(df['winner_team_key'] == df['team_key'], 1, 0)
+    
+    # Calculate average points and standard deviation for each team
+    team_stats = df.groupby('team_key').agg({
+        'team_total_points': ['mean', 'std', 'sum'],
+        'win': 'sum' 
+    }).reset_index()
+
+    # Set column names
+    team_stats.columns = ['team_key', 'avg_points', 'std_points', 'total_points', 'wins']
+    
+    ##########################################
+    ### Monte Carlo simulations start here ###
+    ##########################################
+
+    # Parameters
+    n_simulations = 10000  # Number of Monte Carlo simulations
+    n_weeks_remaining = 7  # Number of weeks remaining in the season
+    # n_weeks_remaining = 14 - current_week
+    n_playoff_teams = 8    # Number of teams that make the playoffs
+
+    # Column to track playoff qualifications
+    team_stats['playoff_made'] = 0
+
+    # Simulate remainder of season
+    for _ in range(n_simulations):
+        # df to simulate each team's season
+        team_simulation = team_stats[['team_key']].copy()
+        team_simulation = team_stats['wins'].copy()
+        team_simulation = team_stats['total_points'].copy()
+
+        for week in n_weeks_remaining:
+            
+            week = 1
+
+
+    return None
+
+
+def get_power_rankings():
+    """
+    Calculates individual team's power rankings using the following formula:
+    ((avg. score x 6) + [(highest score + lowest score) x 2] + [(winnnig % x 200) x 2]) / 10
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    discord.Embed
+        A discord Embed object containing formatted power rankings
+    """
+    # Embed structure
+    embed = discord.Embed(title="Richie's Power Rankings", color=0x00ff00)
+    header = f"{'Rank':<5}{'Manager':<20}{'Power Score':<20}"
+    # Get current week
+    current_week = get_current_week()
+
+    # Initialize an empty list to store records
+    records = []
+
+    for i in range(1, current_week + 1): 
+        # Query data from yahoo
+        matchups = query.get_league_matchups_by_week(i)
+        # Loop through matchup data
+        for i in range(len(matchups)):
+            matchup = matchups[i].to_json() # matchup[i] is a yfpy object
+            matchup_dict = json.loads(matchup)
+            
+            # Generate a unique matchup_id (UUID)
+            matchup_id = str(uuid.uuid4())
+
+            # Extract information for each team in the matchup
+            for team in matchup_dict.get('teams', []):
+                team_info = team.get('team', {})
+                record = {
+                    'matchup_id': matchup_id,
+                    'week': matchup_dict.get('week'),
+                    'winner_team_key': matchup_dict.get('winner_team_key'),
+                    'team_key': team_info.get('team_key'),
+                    'team_total_points': team_info.get('team_points', {}).get('total'),
+                    'team_projected_points': team_info.get('team_projected_points', {}).get('total')
+                }
+                
+                # Add the record to the list
+                records.append(record)
+
+    # Convert the list of records to a DataFrame
+    df = pd.DataFrame(records)
+    # Creating win column 
+    df["win"] = np.where(df['winner_team_key'] == df['team_key'], 1, 0)
+    
+    # Calculate average points and standard deviation for each team
+    team_stats = df.groupby('team_key').agg({
+        'team_total_points': ['mean', 'std', 'sum', 'min', 'max'],
+        'win': 'sum' 
+    }).reset_index()
+
+    # Set column names
+    team_stats.columns = ['team_key', 'avg_points', 'std_points', 'total_points', 'max_points', 'min_points', 'wins']
+    # Map team key to nickname
+    team_stats = map_team_key_to_nickname(team_stats, 'team_key')
+    # Calculate ranking
+    team_stats['p_rank'] = (
+        (team_stats.avg_points * 6) +
+        ((team_stats.max_points + team_stats.min_points) * 2) +
+        (((team_stats.wins / current_week) * 200) * 2)
+    ) / 10
+    # grab only rank and nickname
+    p_rank_table = pd.DataFrame()
+    p_rank_table['Manager'] = team_stats['nickname']
+    p_rank_table['Power Score'] = team_stats['p_rank']
+   # Add a new 'Rank' column based on the Power Score
+    p_rank_table['Rank'] = p_rank_table['Power Score'].rank(ascending=False, method='min').astype(int)
+    # Sort by Rank if needed
+    p_rank_table = p_rank_table.sort_values('Rank')
+    # Prepare the table content
+    rank_col = "\n".join([f"{row['Rank']}" for _, row in p_rank_table.iterrows()])
+    manager_col = "\n".join([f"{row['Manager']}" for _, row in p_rank_table.iterrows()])
+    score_col = "\n".join([f"{row['Power Score']:.2f}" for _, row in p_rank_table.iterrows()])
+
+    # Adding the table to the embed
+    embed.add_field(name="Rank", value=f"```{rank_col}```", inline=True)
+    embed.add_field(name="Manager", value=f"```{manager_col}```", inline=True)
+    embed.add_field(name="Power Score", value=f"```{score_col}```", inline=True)
+    
+    return embed
