@@ -164,3 +164,4 @@ bot/auth/
 
 # Ignore the workspace foler
 bot/workspace/
+bot/junk.ipynb
