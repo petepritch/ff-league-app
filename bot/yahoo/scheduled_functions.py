@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import discord
 from typing import Final
 from yfpy.query import YahooFantasySportsQuery
 from dotenv import load_dotenv
