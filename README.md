@@ -18,3 +18,5 @@ I intend on implementing the following features:
 3. "What if?" matrix. A matrix displaying each team's record as if they had played every other team's schedule.
 
 Eventually, I would like to refactor this repo in such a way that other Yahoo Fantasy Football enthusiasts can clone and get this bot up and running for their own leagues with minimal effort. If you stumble upon this page and are interested in contributing to this project, please reach out to me by email - petep <at> umich <dot> edu.
+
+Hello Heleyna! Hello Izzy!
